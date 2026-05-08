@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kyle Davis for President | Harvard Mock Trial</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --crimson: #A51C30;
+  --crimson-dark: #8C1728;
+  --crimson-light: #C4354A;
+  --black: #0A0A0A;
+  --black-mid: #141414;
+  --black-card: #1A1A1A;
+  --white: #FFFFFF;
+  --off-white: #F0F0F0;
+  --gray: #999999;
+  --gray-dim: #666666;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-accent: rgba(165, 28, 48, 0.4);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--black);
+  color: var(--off-white);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; line-height: 1.15; }
+
+/* ── NAVIGATION ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: all 0.4s ease;
+}
+nav.scrolled { background: rgba(10, 10, 10, 0.98); }
+.nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 2rem;
+}
+.nav-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; font-weight: 700;
+  color: var(--crimson);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 1px; background: var(--crimson);
+  transition: width 0.3s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-links a:hover::after { width: 100%; }
+
+.mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+.mobile-toggle span { display: block; width: 24px; height: 2px; background: var(--white); margin: 5px 0; transition: all 0.3s; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(165, 28, 48, 0.1) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 50%, rgba(165, 28, 48, 0.05) 0%, transparent 60%);
+  z-index: 0;
+}
+.hero::after {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  z-index: 0;
+}
+.hero-content { position: relative; z-index: 1; max-width: 900px; }
+
+.hero-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--crimson);
+  font-weight: 600;
+  margin-bottom: 2rem;
+  display: flex; align-items: center; justify-content: center; gap: 1rem;
+}
+.hero-label::before, .hero-label::after {
+  content: ''; width: 40px; height: 1px; background: var(--crimson); opacity: 0.5;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 0.3em;
+  letter-spacing: -0.02em;
+}
+.hero h1 .accent { color: var(--crimson); }
+.hero h1 .line-break { display: block; }
+
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  color: var(--gray);
+  font-weight: 400;
+  margin-bottom: 3rem;
+  font-style: italic;
+  max-width: 600px;
+  margin-left: auto; margin-right: auto;
+}
+
+.hero-cta-group { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 1rem 2.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none; cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-primary {
+  background: var(--crimson);
+  color: var(--white);
+  border: 1px solid var(--crimson);
+}
+.btn-primary:hover { background: var(--crimson-dark); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(165, 28, 48, 0.3); }
+.btn-outline {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid var(--white);
+}
+.btn-outline:hover { background: rgba(255, 255, 255, 0.05); transform: translateY(-2px); }
+
+.scroll-indicator {
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  z-index: 1;
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  color: var(--gray-dim); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+  animation: float 3s ease-in-out infinite;
+}
+.scroll-indicator .arrow { width: 1px; height: 30px; background: linear-gradient(to bottom, var(--crimson), transparent); }
+@keyframes float { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+/* ── SECTIONS ── */
+.section { padding: 6rem 2rem; position: relative; }
+.section-inner { max-width: 1000px; margin: 0 auto; }
+
+.section-header { text-align: center; margin-bottom: 3.5rem; }
+.section-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--crimson);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.section-header h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+.section-header .rule { width: 60px; height: 2px; background: var(--crimson); margin: 1.5rem auto; }
+.section-header p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  color: var(--gray);
+  max-width: 600px;
+  margin: 0 auto;
+  font-style: italic;
+}
+
+.section-alt { background: var(--black-mid); }
+
+/* ── THESIS ── */
+.thesis {
+  padding: 5rem 2rem;
+  background: var(--black-mid);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.thesis-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+.thesis blockquote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+  color: var(--off-white);
+  line-height: 1.8;
+  font-weight: 400;
+  border: none; margin: 0; padding: 0;
+}
+.thesis blockquote em { color: var(--crimson); font-style: normal; font-weight: 600; }
+
+/* ── PILLAR CARDS ── */
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.pillar-card {
+  background: var(--black-card);
+  border: 1px solid var(--border-subtle);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+.pillar-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--crimson), transparent);
+  opacity: 0; transition: opacity 0.4s;
+}
+.pillar-card:hover { transform: translateY(-4px); border-color: var(--border-accent); }
+.pillar-card:hover::before { opacity: 1; }
+
+.pillar-icon { font-size: 2rem; margin-bottom: 1.5rem; display: block; }
+.pillar-card h3 { font-size: 1.3rem; color: var(--white); margin-bottom: 0.8rem; }
+.pillar-card p { font-size: 0.95rem; color: var(--gray); line-height: 1.7; }
+.pillar-card .pillar-link {
+  display: inline-block; margin-top: 1.5rem;
+  color: var(--crimson);
+  font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none; transition: all 0.3s;
+}
+.pillar-card .pillar-link:hover { letter-spacing: 0.15em; }
+
+/* ── POLICY SECTIONS ── */
+.policy-section { padding: 5rem 2rem; }
+.policy-header {
+  display: flex; align-items: baseline; gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.policy-roman {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem; font-weight: 900;
+  color: var(--crimson); opacity: 0.7; line-height: 1;
+}
+.policy-header h2 { font-size: clamp(1.8rem, 3.5vw, 2.5rem); color: var(--white); }
+.policy-header h2 small {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem; color: var(--gray);
+  font-weight: 400; font-style: italic; margin-top: 0.3rem;
+}
+
+.policy-body { max-width: 1000px; margin: 0 auto; }
+
+.policy-intro {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem; color: var(--gray);
+  line-height: 1.9; margin-bottom: 2.5rem;
+  max-width: 750px;
+}
+
+/* Compact key-points */
+.key-points {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.2rem; margin-bottom: 2rem;
+}
+.key-point {
+  background: var(--black-card);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--crimson);
+  padding: 1.5rem;
+  transition: border-color 0.3s;
+}
+.key-point:hover { border-color: var(--border-accent); }
+.key-point h4 {
+  font-size: 1rem; color: var(--white);
+  margin-bottom: 0.4rem; font-weight: 600;
+}
+.key-point p { font-size: 0.88rem; color: var(--gray); line-height: 1.6; }
+
+/* Hub-spoke visual */
+.hub-spoke {
+  display: flex; flex-direction: column; align-items: center;
+  margin: 2.5rem 0;
+}
+.hub {
+  background: var(--crimson);
+  color: var(--white);
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-weight: 700;
+  padding: 1.2rem 2.5rem;
+  border: 1px solid var(--crimson-light);
+  text-align: center;
+  position: relative; z-index: 2;
+}
+.spoke-connector {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--crimson), var(--gray-dim));
+}
+.spokes {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; width: 100%; max-width: 800px;
+}
+.spoke {
+  background: var(--black-card);
+  border: 1px solid var(--border-subtle);
+  padding: 1.5rem; text-align: center;
+  position: relative; transition: all 0.3s;
+}
+.spoke::before {
+  content: ''; position: absolute;
+  top: -20px; left: 50%;
+  width: 1px; height: 20px;
+  background: var(--gray-dim); opacity: 0.4;
+}
+.spoke:hover { border-color: var(--crimson); }
+.spoke h4 { font-size: 0.95rem; color: var(--white); margin-bottom: 0.3rem; }
+.spoke p { font-size: 0.82rem; color: var(--gray); line-height: 1.5; }
+
+/* Priority pyramid */
+.pyramid {
+  display: flex; flex-direction: column; align-items: center;
+  margin: 2.5rem 0; gap: 0;
+}
+.pyramid-tier {
+  text-align: center;
+  padding: 1.2rem 2rem;
+  position: relative;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+}
+.pyramid-tier:hover { border-color: var(--border-accent); }
+.pyramid-tier-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.pyramid-tier h4 { font-size: 1rem; color: var(--white); margin-bottom: 0.3rem; }
+.pyramid-tier p { font-size: 0.82rem; color: var(--gray); line-height: 1.4; }
+
+.pyramid-t1 {
+  width: 40%; max-width: 320px;
+  background: var(--crimson);
+  clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+  padding-top: 1.8rem;
+}
+.pyramid-t1 .pyramid-tier-num { color: rgba(255,255,255,0.7); }
+.pyramid-t1 h4 { color: var(--white); }
+.pyramid-t1 p { color: rgba(255,255,255,0.8); }
+
+.pyramid-t2 {
+  width: 65%; max-width: 520px;
+  background: var(--black-card);
+  border-left: 1px solid var(--border-subtle);
+  border-right: 1px solid var(--border-subtle);
+  margin-top: -1px;
+}
+.pyramid-t2 .pyramid-tier-num { color: var(--crimson); }
+
+.pyramid-t3 {
+  width: 90%; max-width: 720px;
+  background: rgba(26, 26, 26, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-top: none;
+  margin-top: -1px;
+}
+.pyramid-t3 .pyramid-tier-num { color: var(--gray-dim); }
+.pyramid-t3 h4 { color: var(--gray); }
+
+.pyramid-label {
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: var(--gray-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-style: italic;
+}
+
+@media (max-width: 900px) {
+  .pyramid-t1 { width: 60%; }
+  .pyramid-t2 { width: 80%; }
+  .pyramid-t3 { width: 100%; }
+}
+
+/* Identity circles */
+.identity-circles {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2rem; margin: 2.5rem 0;
+}
+.circle-item {
+  text-align: center; padding: 2rem 1.5rem;
+  border: 1px solid var(--border-subtle);
+  position: relative; transition: all 0.4s;
+}
+.circle-item::after {
+  content: '\2192'; position: absolute;
+  right: -1.2rem; top: 50%; transform: translateY(-50%);
+  color: var(--crimson); font-size: 1.2rem; opacity: 0.4;
+}
+.circle-item:last-child::after { display: none; }
+.circle-item:hover { border-color: var(--crimson); }
+.circle-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.75rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--crimson); margin-bottom: 0.8rem;
+}
+.circle-item h4 { font-size: 1.1rem; color: var(--white); margin-bottom: 0.5rem; }
+.circle-item p { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+
+/* ── CONVERGENCE ── */
+.convergence {
+  padding: 6rem 2rem;
+  background: var(--black-mid);
+  text-align: center;
+  border-top: 1px solid var(--border-subtle);
+}
+.convergence-inner { max-width: 750px; margin: 0 auto; }
+.convergence h2 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  color: var(--white); margin-bottom: 2rem;
+}
+.convergence p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem; color: var(--gray);
+  line-height: 1.9; margin-bottom: 1.5rem;
+}
+.convergence .emphasis { color: var(--crimson); font-weight: 600; font-style: normal; }
+
+.flywheel {
+  display: flex; align-items: center; justify-content: center;
+  gap: 1.5rem; margin: 3rem 0; flex-wrap: wrap;
+}
+.flywheel-node {
+  padding: 0.8rem 1.5rem;
+  border: 1px solid var(--border-accent);
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem; color: var(--crimson); font-weight: 600;
+}
+.flywheel-arrow { color: var(--crimson); opacity: 0.4; font-size: 1.2rem; }
+
+/* ── CLOSING ── */
+.closing {
+  padding: 6rem 2rem; text-align: center; position: relative;
+}
+.closing::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(165, 28, 48, 0.06) 0%, transparent 70%);
+}
+.closing-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+.closing h2 { font-size: clamp(2rem, 4vw, 3rem); color: var(--white); margin-bottom: 1rem; }
+.closing p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; color: var(--gray);
+  font-style: italic; margin-bottom: 3rem;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 3rem 2rem;
+  border-top: 1px solid var(--border-subtle);
+  text-align: center;
+}
+footer p { font-size: 0.8rem; color: var(--gray-dim); letter-spacing: 0.05em; }
+footer .footer-brand {
+  font-family: 'Playfair Display', serif;
+  color: var(--crimson); font-weight: 700;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .pillars-grid, .spokes, .identity-circles, .key-points { grid-template-columns: 1fr; }
+  .circle-item::after { display: none; }
+  .flywheel { flex-direction: column; }
+  .flywheel-arrow { transform: rotate(90deg); }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .mobile-toggle { display: block; }
+  nav.open .nav-links {
+    display: flex; flex-direction: column;
+    position: absolute; top: 100%; left: 0; right: 0;
+    background: rgba(10, 10, 10, 0.98);
+    padding: 2rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .policy-header { flex-direction: column; gap: 0.5rem; }
+}
+
+/* ── ANIMATIONS ── */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">Kyle Davis 2026</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#platform">Platform</a></li>
+      <li><a href="#finance">Finance</a></li>
+      <li><a href="#administration">Administration</a></li>
+      <li><a href="#image">Image</a></li>
+      <li><a href="#vision">Vision</a></li>
+    </ul>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-content">
+    <div class="hero-label">Harvard Mock Trial</div>
+    <h1>
+      <span class="line-break">Kyle</span>
+      <span class="line-break"><span class="accent">Davis</span></span>
+    </h1>
+    <!-- EDIT: Tagline -->
+    <p class="hero-subtitle">Transparency, Coordination, Visibility</p>
+    <div class="hero-cta-group">
+      <a href="#platform" class="btn btn-primary">Read the Platform</a>
+      <a href="#vision" class="btn btn-outline">The Vision</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="arrow"></div>
+  </div>
+</section>
+
+<!-- THESIS -->
+<section class="thesis reveal">
+  <div class="thesis-inner">
+    <blockquote>
+      This platform is about three things: <em>financial transparency</em>, <em>administrative coordination</em>, and a <em>stronger team identity on campus</em>. Everything here is something I can actually do, and something you can hold me to.
+    </blockquote>
+  </div>
+</section>
+
+<!-- THREE PILLARS OVERVIEW -->
+<section class="section" id="platform">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-number">The Platform</div>
+      <h2>Three Priorities</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="pillars-grid">
+      <div class="pillar-card reveal">
+        <span class="pillar-icon">&#9878;</span>
+        <h3>Finance</h3>
+        <p>A structured budget so everyone can see where the money goes and why.</p>
+        <a href="#finance" class="pillar-link">Read More &rarr;</a>
+      </div>
+      <div class="pillar-card reveal">
+        <span class="pillar-icon">&#9881;</span>
+        <h3>Administration</h3>
+        <p>Directors own their roles. The president keeps everything connected and moving.</p>
+        <a href="#administration" class="pillar-link">Read More &rarr;</a>
+      </div>
+      <div class="pillar-card reveal">
+        <span class="pillar-icon">&#10022;</span>
+        <h3>Image</h3>
+        <p>Rebranding from the inside out. Identity first, website second, campus presence third.</p>
+        <a href="#image" class="pillar-link">Read More &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLAR I: FINANCE -->
+<section class="policy-section section-alt" id="finance">
+  <div class="policy-body">
+    <div class="policy-header reveal">
+      <span class="policy-roman">I</span>
+      <h2>Reorganizing the Budget <small>Where the money goes and why.</small></h2>
+    </div>
+
+    <p class="policy-intro reveal">
+      I want to bring more structure to how we organize the budget. A four-level framework that makes revenues, expenses, and trade-offs easy for anyone to follow.
+    </p>
+
+    <div class="key-points">
+      <div class="key-point reveal">
+        <h4>Guiding Principles</h4>
+        <p>Every line item has a clear purpose. If something isn't serving the team well, we reorganize around what matters most.</p>
+      </div>
+      <div class="key-point reveal">
+        <h4>Revenue + Expenses</h4>
+        <p>Meticulous bookkeeping. Every income source and every expenditure accounted for and easy to trace.</p>
+      </div>
+      <div class="key-point reveal">
+        <h4>Activity-Based Items</h4>
+        <p>Organized by what we do: tournaments, travel, social events, hotels, etc.</p>
+      </div>
+      <div class="key-point reveal">
+        <h4>Priority Tiers</h4>
+        <p>Every expense falls into one of three tiers, so we always know what to protect first and where there's flexibility.</p>
+      </div>
+    </div>
+
+    <div class="pyramid reveal">
+      <div class="pyramid-tier pyramid-t1">
+        <div class="pyramid-tier-num">Tier 1</div>
+        <h4>Essential</h4>
+        <p>Tournaments, seminars, food, travel</p>
+      </div>
+      <div class="pyramid-tier pyramid-t2">
+        <div class="pyramid-tier-num">Tier 2</div>
+        <h4>High Value</h4>
+        <p>Tryout pubbing, photos, socials</p>
+      </div>
+      <div class="pyramid-tier pyramid-t3">
+        <div class="pyramid-tier-num">Tier 3</div>
+        <h4>Enhancement</h4>
+        <p>Apparel, optional events</p>
+      </div>
+      <div class="pyramid-label">Top of the pyramid gets protected first</div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLAR II: ADMINISTRATION -->
+<section class="policy-section" id="administration">
+  <div class="policy-body">
+    <div class="policy-header reveal">
+      <span class="policy-roman">II</span>
+      <h2>How the Board Should Work <small>Clear roles, real coordination.</small></h2>
+    </div>
+
+    <p class="policy-intro reveal">
+      I want to build on what we have and add more coordination across the board. The co-captains and president handle team-wide competitive and logistical functions. The president makes sure the DTTM, BTP Director, and Social Chair all have what they need to do their jobs well.
+    </p>
+
+    <div class="hub-spoke reveal">
+      <div class="hub">President</div>
+      <div class="spoke-connector"></div>
+      <div class="spokes">
+        <div class="spoke">
+          <h4>Tryouts &amp; Training</h4>
+          <p>Rubrics, calendar, retention</p>
+        </div>
+        <div class="spoke">
+          <h4>Tournaments</h4>
+          <p>Judges, venue, participants, trophies</p>
+        </div>
+        <div class="spoke">
+          <h4>Social</h4>
+          <p>Events, partnerships, data</p>
+        </div>
+      </div>
+    </div>
+    <div class="key-points reveal">
+      <div class="key-point">
+        <h4>Weekly 1:1s</h4>
+        <p>Fifteen minutes with each director every week. What's going well, what's stuck, what needs a decision. Problems get caught early.</p>
+      </div>
+      <div class="key-point">
+        <h4>Board Dashboard</h4>
+        <p>A live Notion page that tracks all board activities, tasks, and budget in one place. Everyone can see where things stand.</p>
+      </div>
+      <div class="key-point">
+        <h4>Written SOPs</h4>
+        <p>How to book travel, order demos, declare expenses: all of it written down so it's easy for anyone to pick up and run with.</p>
+      </div>
+      <div class="key-point">
+        <h4>President's Portfolio</h4>
+        <p>Travel, scrimmages, and demonstrative orders all fall to the president. Captains should be focused on the team's competitive game, not logistics.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLAR III: IMAGE -->
+<section class="policy-section section-alt" id="image">
+  <div class="policy-body">
+    <div class="policy-header reveal">
+      <span class="policy-roman">III</span>
+      <h2>Rebranding from the Inside Out <small>How people see us, and how we see ourselves.</small></h2>
+    </div>
+
+    <p class="policy-intro reveal">
+      Everyone who interacts with Mock Trial forms an impression of who we are. I want to make sure that impression is intentional.
+    </p>
+
+    <div class="identity-circles reveal">
+      <div class="circle-item">
+        <div class="circle-label">Circle One</div>
+        <h4>Internal Identity</h4>
+        <p>Reworked brand design that feels more polished. More merchandise, and things like business cards and resume workshops that make membership feel valuable to prospective members.</p>
+      </div>
+      <div class="circle-item">
+        <div class="circle-label">Circle Two</div>
+        <h4>The Website</h4>
+        <p>A real website: team roster with bios, results and honors, alumni page, testimonials. Clean, modern, and something we're proud to share.</p>
+      </div>
+      <div class="circle-item">
+        <div class="circle-label">Circle Three</div>
+        <h4>Campus Presence</h4>
+        <p>Strategic mixers with pre-law organizations, debate, Model UN. Track what converts to tryout sign-ups for future administrations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section class="convergence" id="vision">
+  <div class="convergence-inner">
+    <div class="section-number reveal">The Vision</div>
+    <h2 class="reveal">Why It Works Together</h2>
+    <div style="width: 60px; height: 2px; background: var(--crimson); margin: 1.5rem auto;" class="reveal"></div>
+
+    <div class="flywheel reveal">
+      <div class="flywheel-node">Budget Transparency</div>
+      <span class="flywheel-arrow">&rarr;</span>
+      <div class="flywheel-node">Board Coordination</div>
+      <span class="flywheel-arrow">&rarr;</span>
+      <div class="flywheel-node">Brand Gets Built</div>
+      <span class="flywheel-arrow">&rarr;</span>
+      <div class="flywheel-node">Recruitment Strengthens</div>
+    </div>
+
+    <p class="reveal">
+      When the budget is clear, the board can actually be held accountable. When the board is coordinated, the brand work gets done. And when people see a team that looks like it has its act together, <span class="emphasis">they want to join</span>.
+    </p>
+    <p class="reveal" style="margin-top: 1rem; font-size: 1.3rem; color: var(--crimson); font-weight: 600; font-style: normal;">
+      None of this disappears when I leave office. It's designed to stick.
+    </p>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing">
+  <div class="closing-inner">
+    <h2 class="reveal">Built to Last.</h2>
+    <p class="reveal">Everything here is specific, assigned, and trackable. Ask me about any of it. Text or call me anytime.</p>
+    <div class="reveal" style="margin-top: 2rem;">
+      <a href="#top" class="btn btn-primary">Back to Top</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><span class="footer-brand">Kyle Davis</span> for President &middot; Harvard Mock Trial 2026</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+const mobileToggle = document.getElementById('mobileToggle');
+const navEl = document.getElementById('navbar');
+mobileToggle.addEventListener('click', () => navEl.classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => navEl.classList.remove('open'));
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+
+</body>
+</html>
