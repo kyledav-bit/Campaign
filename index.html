@@ -415,6 +415,136 @@ nav.scrolled { background: rgba(10, 10, 10, 0.98); }
   .pyramid-t3 { width: 100%; }
 }
 
+/* Interactive budget tool */
+.budget-tool {
+  padding: 5rem 2rem;
+  background: var(--black);
+}
+.budget-inner { max-width: 1000px; margin: 0 auto; }
+
+.budget-income-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--black-card);
+  border: 1px solid var(--border-subtle);
+  padding: 1.5rem 2rem;
+  margin-bottom: 2.5rem;
+}
+.budget-income-bar .label {
+  font-size: 0.85rem; color: var(--gray);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.budget-income-bar .amount {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem; color: var(--white); font-weight: 700;
+}
+.budget-income-bar input {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem; color: var(--white); font-weight: 700;
+  background: transparent; border: none; border-bottom: 2px solid var(--crimson);
+  text-align: right; width: 160px; outline: none;
+  padding-bottom: 2px;
+}
+
+.sliders-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; margin-bottom: 2.5rem;
+}
+.slider-card {
+  background: var(--black-card);
+  border: 1px solid var(--border-subtle);
+  padding: 1.5rem;
+  text-align: center;
+  transition: border-color 0.3s;
+}
+.slider-card:hover { border-color: var(--border-accent); }
+.slider-card h4 {
+  font-size: 1rem; color: var(--white);
+  margin-bottom: 0.3rem;
+}
+.slider-pct {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem; font-weight: 700;
+  color: var(--crimson); margin: 0.5rem 0;
+}
+.slider-dollars {
+  font-size: 0.9rem; color: var(--gray); margin-bottom: 1rem;
+}
+.slider-card input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 6px;
+  background: var(--black); border-radius: 3px;
+  outline: none; cursor: pointer;
+}
+.slider-card input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--crimson); cursor: pointer;
+  border: 2px solid var(--white);
+}
+.slider-card input[type="range"]::-moz-range-thumb {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--crimson); cursor: pointer;
+  border: 2px solid var(--white);
+}
+
+.budget-balance {
+  text-align: center; padding: 0.8rem;
+  font-size: 0.85rem; font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-bottom: 2.5rem;
+  border: 1px solid var(--border-subtle);
+}
+.budget-balance.balanced { color: #4CAF50; border-color: rgba(76,175,80,0.3); }
+.budget-balance.unbalanced { color: var(--crimson); border-color: var(--border-accent); }
+
+.breakdown-section { margin-bottom: 2rem; }
+.breakdown-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.8rem 1.2rem;
+  background: var(--black-mid);
+  border: 1px solid var(--border-subtle);
+  border-bottom: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.breakdown-header:hover { background: var(--black-card); }
+.breakdown-header h4 { font-size: 1rem; color: var(--white); }
+.breakdown-header .alloc-amount { font-size: 0.95rem; color: var(--crimson); font-weight: 600; }
+.breakdown-header .toggle-icon { color: var(--gray); font-size: 0.8rem; transition: transform 0.3s; }
+.breakdown-header.open .toggle-icon { transform: rotate(180deg); }
+
+.breakdown-items {
+  border: 1px solid var(--border-subtle);
+  border-top: none;
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.breakdown-items.open { max-height: 600px; }
+
+.breakdown-row {
+  display: grid; grid-template-columns: 2fr 1fr 1fr;
+  gap: 1rem; padding: 0.7rem 1.2rem;
+  border-bottom: 1px solid var(--border-subtle);
+  align-items: center;
+  font-size: 0.85rem;
+}
+.breakdown-row:last-child { border-bottom: none; }
+.breakdown-row .item-name { color: var(--off-white); }
+.breakdown-row .item-tier {
+  font-size: 0.7rem; text-transform: uppercase;
+  letter-spacing: 0.08em; text-align: center;
+  padding: 0.2rem 0.5rem;
+}
+.tier-1 { color: var(--crimson); background: rgba(165,28,48,0.1); }
+.tier-2 { color: #D4880F; background: rgba(212,136,15,0.1); }
+.tier-3 { color: var(--gray-dim); background: rgba(102,102,102,0.1); }
+.breakdown-row .item-amount { text-align: right; color: var(--off-white); font-weight: 500; }
+
+@media (max-width: 900px) {
+  .sliders-grid { grid-template-columns: 1fr; }
+  .budget-income-bar { flex-direction: column; gap: 0.5rem; text-align: center; }
+}
+
 /* Identity circles */
 .identity-circles {
   display: grid; grid-template-columns: repeat(3, 1fr);
@@ -536,6 +666,7 @@ footer .footer-brand {
     <ul class="nav-links" id="navLinks">
       <li><a href="#platform">Platform</a></li>
       <li><a href="#finance">Finance</a></li>
+      <li><a href="#budget-tool">Budget</a></li>
       <li><a href="#administration">Administration</a></li>
       <li><a href="#image">Image</a></li>
       <li><a href="#vision">Vision</a></li>
@@ -657,6 +788,91 @@ footer .footer-brand {
       </div>
       <div class="pyramid-label">Top of the pyramid gets protected first</div>
     </div>
+  </div>
+</section>
+
+<!-- INTERACTIVE BUDGET TOOL -->
+<section class="budget-tool" id="budget-tool">
+  <div class="budget-inner">
+    <div class="policy-header reveal">
+      <span class="policy-roman" style="opacity: 0.4;">$</span>
+      <h2>Budget Model <small>Drag the sliders to see how allocation changes the numbers.</small></h2>
+    </div>
+
+    <div class="budget-income-bar reveal">
+      <span class="label">Projected Total Income</span>
+      <div>
+        <span style="font-size: 1.8rem; color: var(--gray); font-family: 'Playfair Display', serif;">$</span>
+        <input type="number" id="totalIncome" value="8200" min="0" step="100">
+      </div>
+    </div>
+
+    <div class="sliders-grid reveal">
+      <div class="slider-card">
+        <h4>Team Expenses</h4>
+        <div class="slider-pct" id="teamPct">60%</div>
+        <div class="slider-dollars" id="teamDollars">$4,920</div>
+        <input type="range" id="teamSlider" min="0" max="100" value="60">
+      </div>
+      <div class="slider-card">
+        <h4>Social Expenses</h4>
+        <div class="slider-pct" id="socialPct">25%</div>
+        <div class="slider-dollars" id="socialDollars">$2,050</div>
+        <input type="range" id="socialSlider" min="0" max="100" value="25">
+      </div>
+      <div class="slider-card">
+        <h4>Miscellaneous</h4>
+        <div class="slider-pct" id="miscPct">15%</div>
+        <div class="slider-dollars" id="miscDollars">$1,230</div>
+        <input type="range" id="miscSlider" min="0" max="100" value="15">
+      </div>
+    </div>
+
+    <div class="budget-balance balanced reveal" id="balanceCheck">Balanced: 100%</div>
+
+    <!-- Team Expenses Breakdown -->
+    <div class="breakdown-section reveal">
+      <div class="breakdown-header open" onclick="toggleBreakdown(this)">
+        <h4>Team Expenses</h4>
+        <span class="alloc-amount" id="teamAllocLabel">$4,920</span>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+      <div class="breakdown-items open" id="teamBreakdown">
+        <div class="breakdown-row"><span class="item-name">Tournament Registration</span><span class="item-tier tier-1">Tier 1</span><span class="item-amount" data-cat="team" data-pct="0.10">$492</span></div>
+        <div class="breakdown-row"><span class="item-name">Travel</span><span class="item-tier tier-1">Tier 1</span><span class="item-amount" data-cat="team" data-pct="0.18">$886</span></div>
+        <div class="breakdown-row"><span class="item-name">Hotels</span><span class="item-tier tier-1">Tier 1</span><span class="item-amount" data-cat="team" data-pct="0.18">$886</span></div>
+        <div class="breakdown-row"><span class="item-name">Food (Tournaments)</span><span class="item-tier tier-1">Tier 1</span><span class="item-amount" data-cat="team" data-pct="0.10">$492</span></div>
+        <div class="breakdown-row"><span class="item-name">Case Materials</span><span class="item-tier tier-1">Tier 1</span><span class="item-amount" data-cat="team" data-pct="0.22">$1,082</span></div>
+        <div class="breakdown-row"><span class="item-name">Coaching / Seminars</span><span class="item-tier tier-1">Tier 1</span><span class="item-amount" data-cat="team" data-pct="0.10">$492</span></div>
+        <div class="breakdown-row"><span class="item-name">Costumes / Props</span><span class="item-tier tier-2">Tier 2</span><span class="item-amount" data-cat="team" data-pct="0.07">$345</span></div>
+        <div class="breakdown-row"><span class="item-name">Practice Supplies</span><span class="item-tier tier-3">Tier 3</span><span class="item-amount" data-cat="team" data-pct="0.05">$246</span></div>
+      </div>
+    </div>
+
+    <!-- Social Expenses (breakdown determined by Social Chair) -->
+    <div class="breakdown-section reveal">
+      <div class="breakdown-header" style="cursor: default;">
+        <h4>Social Expenses</h4>
+        <span class="alloc-amount" id="socialAllocLabel">$2,050</span>
+        <span style="font-size: 0.75rem; color: var(--gray-dim); font-style: italic;">Breakdown set by Social Chair</span>
+      </div>
+    </div>
+
+    <!-- Miscellaneous Breakdown -->
+    <div class="breakdown-section reveal">
+      <div class="breakdown-header" onclick="toggleBreakdown(this)">
+        <h4>Miscellaneous</h4>
+        <span class="alloc-amount" id="miscAllocLabel">$1,230</span>
+        <span class="toggle-icon">&#9660;</span>
+      </div>
+      <div class="breakdown-items" id="miscBreakdown">
+        <div class="breakdown-row"><span class="item-name">Photography / Media</span><span class="item-tier tier-2">Tier 2</span><span class="item-amount" data-cat="misc" data-pct="0.15">$185</span></div>
+        <div class="breakdown-row"><span class="item-name">Website Hosting</span><span class="item-tier tier-2">Tier 2</span><span class="item-amount" data-cat="misc" data-pct="0.10">$123</span></div>
+        <div class="breakdown-row"><span class="item-name">Merchandise / Branding</span><span class="item-tier tier-3">Tier 3</span><span class="item-amount" data-cat="misc" data-pct="0.35">$431</span></div>
+        <div class="breakdown-row"><span class="item-name">Emergency / Contingency</span><span class="item-tier tier-1">Tier 1</span><span class="item-amount" data-cat="misc" data-pct="0.40">$492</span></div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -804,6 +1020,65 @@ mobileToggle.addEventListener('click', () => navEl.classList.toggle('open'));
 document.querySelectorAll('.nav-links a').forEach(link => {
   link.addEventListener('click', () => navEl.classList.remove('open'));
 });
+
+// ── INTERACTIVE BUDGET TOOL ──
+function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+
+const teamSlider = document.getElementById('teamSlider');
+const socialSlider = document.getElementById('socialSlider');
+const miscSlider = document.getElementById('miscSlider');
+const incomeInput = document.getElementById('totalIncome');
+
+function updateBudget() {
+  const income = parseFloat(incomeInput.value) || 0;
+  const t = parseInt(teamSlider.value);
+  const s = parseInt(socialSlider.value);
+  const m = parseInt(miscSlider.value);
+  const total = t + s + m;
+
+  document.getElementById('teamPct').textContent = t + '%';
+  document.getElementById('socialPct').textContent = s + '%';
+  document.getElementById('miscPct').textContent = m + '%';
+
+  const teamAmt = income * t / 100;
+  const socialAmt = income * s / 100;
+  const miscAmt = income * m / 100;
+
+  document.getElementById('teamDollars').textContent = fmt(teamAmt);
+  document.getElementById('socialDollars').textContent = fmt(socialAmt);
+  document.getElementById('miscDollars').textContent = fmt(miscAmt);
+
+  document.getElementById('teamAllocLabel').textContent = fmt(teamAmt);
+  document.getElementById('socialAllocLabel').textContent = fmt(socialAmt);
+  document.getElementById('miscAllocLabel').textContent = fmt(miscAmt);
+
+  const balEl = document.getElementById('balanceCheck');
+  if (total === 100) {
+    balEl.textContent = 'Balanced: 100%';
+    balEl.className = 'budget-balance balanced reveal visible';
+  } else {
+    balEl.textContent = 'Unbalanced: ' + total + '% (should be 100%)';
+    balEl.className = 'budget-balance unbalanced reveal visible';
+  }
+
+  const catAmounts = { team: teamAmt, social: socialAmt, misc: miscAmt };
+  document.querySelectorAll('.item-amount').forEach(el => {
+    const cat = el.dataset.cat;
+    const pct = parseFloat(el.dataset.pct);
+    el.textContent = fmt(catAmounts[cat] * pct);
+  });
+}
+
+teamSlider.addEventListener('input', updateBudget);
+socialSlider.addEventListener('input', updateBudget);
+miscSlider.addEventListener('input', updateBudget);
+incomeInput.addEventListener('input', updateBudget);
+
+function toggleBreakdown(header) {
+  header.classList.toggle('open');
+  const items = header.nextElementSibling;
+  items.classList.toggle('open');
+}
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
